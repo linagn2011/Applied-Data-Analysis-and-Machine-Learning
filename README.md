@@ -3,6 +3,7 @@ Linear regression is a fundamental technique in machine learning and statistical
 Due to its simplicity and intuitive nature, it can be a good starting point for getting into the world of machine learning. 
 In fact, many of the newer, sophisticated algorithms have their roots in linear regression
 
+This project has been made by Lina Næss, Hans kristian Haraldseth and me, Eirik Fagerbakke.
  In this project  Ordinary Least Squares (OLS), Ridge Regression, and LASSO Regression are introduced. 
  To evaluate the model's accuracy and understand the errors, the metrics Mean Squared Error (MSE) and R2-Score are calculated. 
  Furthermore, the MSE decomposition into bias and variance gives rise to the Bias-Variance trade-off discussion, and resampling methods like Bootstrap and K-fold Cross-Validation (CV) are implemented to help find the best model.

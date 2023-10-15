@@ -9,4 +9,4 @@ In fact, many of the newer, sophisticated algorithms have their roots in linear 
  The analysis is first conducted on synthetic data using Franke's function, where methods and metrics are optimized. 
  Finally, the methods are applied to real digital terrain data from the area around Mount Fuji, Japan.
 
- the Code is based on the code from Erikasan https://github.com/erikasan/fys-stk-project1/tree/master/project1, The code has been edited and revised to this prject's objectives.
+ The code is based on the code from Erikasan https://github.com/erikasan/fys-stk-project1/tree/master/project1, The code has been edited and revised to this project's objectives.

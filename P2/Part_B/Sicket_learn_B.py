@@ -107,7 +107,7 @@ last_epoch_error = pd.DataFrame(costerror, index = formatted_etas, columns = for
 sns.set(font='Times New Roman', style='whitegrid', font_scale=1.2)
 
 # Plot
-title = "Heatmap of NN training error for different learning rates and Regularization values"
+title = "Heatmap of Scikit-learn training error for different learning rates and Regularization values"
 
 
 # # Adjusting the figure size and annot font size
@@ -137,7 +137,7 @@ plt.show()
 ###Checking test MSE
 df_mse = pd.DataFrame(mse_test_list, index = formatted_etas, columns = formatted_lmd)
 
-title = "Heatmap of NN test mse for different learning rates and Regularization values"
+title = "Heatmap of Scikit-learn  test mse for different learning rates and Regularization values"
 
 
  # # Adjusting the figure size and annot font size
@@ -168,7 +168,7 @@ plt.show()
 ### CHecking R2 score
 df_r2 = pd.DataFrame(r2_test_list, index = formatted_etas, columns = formatted_lmd)
 
-title = "Heatmap of NN R2 score for different learning rates and Regularization values"
+title = "Heatmap of Scikit-learn R2 score for different learning rates and Regularization values"
 
 
  # # Adjusting the figure size and annot font size
@@ -195,3 +195,4 @@ cax.set_ylabel('R2', fontsize=12)
 cax.tick_params(labelsize=10)  # Adjust colorbar font size
 
 plt.show()
+

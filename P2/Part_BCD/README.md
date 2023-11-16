@@ -1,1 +1,1 @@
-
+Part B of this project involves the creation of a Feed Forward Nearual Network (FFNN), and finding optimal hyperparameters for the training algorithm. The analysis has been constrained down to only the learning rate and the regularization paramter l2, which has been found through the grid search method. (Yes, it is computationally heavy)

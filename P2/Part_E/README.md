@@ -1,11 +1,11 @@
     Description:
     ------------
     This is the class for the Logistic Regression classification code. 
-    Because we have had some trouble with the GD/SGD code in Part A), this
-    code is written from scratch to solve this task alone, which is why it 
+    This code is written from scratch to solve this task alone, which is why it 
     differs a little bit from the first GD/SGD code. The Cost function used 
     in classification cases, as specified in the report, is the CrossEntropy.
-    This is also the starting point for calculating the gradients used here.
+    This is also the starting point for calculating the gradients used here. 
+    
 
     Initialization:
     ---------------
@@ -16,6 +16,7 @@
         learning_rate: Eta value (step size) for the GD/SGD algorithms
         n_iterations: Number of epochs
         batch_size: Size of mini-batches for SGD 
+        l2_lambda : L2 Regularization parameter, default to 0
     
     Methods:
     --------
@@ -31,3 +32,4 @@
         train : Based on the specifiec method, either GD or SGD, fits the model with the optimal parameters.
         predict : The method to predict on some test data, using the trained model.
         accuracy : A measure of number of correct classifications after the model has made a prediction/classification.
+         

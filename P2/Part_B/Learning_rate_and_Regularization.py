@@ -69,7 +69,7 @@ eta = 0.1
 
 # Create the neural network
 model= NN(X_train,z_train,neurons, act_func_h = 'sigmoid')
-model.train(batch_size = 20, lmb =0.1)
+model.train(batch_size = 20)
 
 
 z_pred= model.predict(X_test)
@@ -86,41 +86,42 @@ plt.plot(np.arange(0,1000),error)
 # Defining model parameters
 etas = np.logspace(-6,-1,10)
 l2_lambdas = np.logspace(-6,-1,10)
-n_iterations = 1000
+n_iterations = 100
 costerror = np.zeros((len(etas), len(l2_lambdas)))
-mse_test = np.zeros((len(etas), len(l2_lambdas)))
+mse_test_list = np.zeros((len(etas), len(l2_lambdas)))
+r2_test_list = np.zeros((len(etas), len(l2_lambdas)))
 
 for i,eta in enumerate(etas):
     for j,lam in enumerate(l2_lambdas):
         model= NN(X_train,z_train,neurons, act_func_h = 'sigmoid')
-        model.train(batch_size = 20, lmb = lam, learning_rate = eta)
+        model.train(batch_size = 20, lmb = lam, learning_rate = eta, epochs = n_iterations)
         z_pred= model.predict(X_test)
-        
         error = model.errors[-1]
         costerror[i,j] = error
-        mse_test=mse(z_pred, z_test)
+        mse_test=mse(z_test, z_pred)
+        r2_test =r2_score(z_test,z_pred)
         
-        
+        mse_test_list[i,j] =(mse_test)
+        r2_test_list[i,j] = (r2_test)
         
 
 
 # Creating a Dataframe with Accuracy-data and plotting a heatmap of the results
 
 
+formatted_etas = ['{:.3e}'.format(i) for i in etas]
+formatted_lmd = ['{:.3e}'.format(i) for i in l2_lambdas]
 
-# # Creating the dataframe
+###Checking Training Error
 
-formatted_etas = ['{:.2e}'.format(i) for i in etas]
-formatted_lmd = ['{:.2e}'.format(i) for i in l2_lambdas]
-
+# Creating the dataframe
 last_epoch_error = pd.DataFrame(costerror, index = formatted_etas, columns = formatted_lmd)
-df_mse = pd.DataFrame(mse_test, index = formatted_etas, columns = formatted_lmd)
 
-# # Setting font-family for Matplotlib to "Times New Roman" to match Overleaf' s Latex font.
+# Setting font-family for Matplotlib to "Times New Roman" to match Overleaf' s Latex font.
 sns.set(font='Times New Roman', style='whitegrid', font_scale=1.2)
 
-# # Plot
-title = "Heatmap of NN mse for different Larning rates and Regularization values"
+# Plot
+title = "Heatmap of NN training error for different learning rates and Regularization values"
 
 
 # # Adjusting the figure size and annot font size
@@ -133,6 +134,37 @@ ax.set_ylabel("{eta}, Learning Rate", fontsize=12)  # Add your Y-axis label and 
 
 
 # Adjust x and y tick font size
+ax.tick_params(axis='x', labelsize=12)  # Adjust x-axis tick font size
+ax.tick_params(axis='y', labelsize=12)  # Adjust y-axis tick font size
+
+plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+plt.yticks(rotation=0)   # Rotate y-axis labels for better readability
+plt.title(title, fontsize=16)
+
+# Adjust colorbar font size
+cax = ax.collections[0].colorbar.ax
+cax.set_ylabel('Cost error', fontsize=14) 
+cax.tick_params(labelsize=10)  # Adjust colorbar font size
+
+plt.show()
+
+###Checking test MSE
+df_mse = pd.DataFrame(mse_test_list, index = formatted_etas, columns = formatted_lmd)
+
+title = "Heatmap of NN test mse for different learning rates and Regularization values"
+
+
+ # # Adjusting the figure size and annot font size
+plt.figure(figsize=(10, 10))
+ax = sns.heatmap(df_mse, annot=True, cmap="crest",fmt=".3f", linewidths=0.5, annot_kws={"size": 12}, cbar_kws={'label': 'MSE for the last epoch'})
+
+
+ # Set x-axis and y-axis label font sizes
+ax.set_xlabel("{lambda_2}, Regularization Parameter", fontsize=12)  # Add your X-axis label and adjust font size
+ax.set_ylabel("{eta}, Learning Rate", fontsize=12)  # Add your Y-axis label and adjust font size
+
+
+ # Adjust x and y tick font size
 ax.tick_params(axis='x', labelsize=10)  # Adjust x-axis tick font size
 ax.tick_params(axis='y', labelsize=10)  # Adjust y-axis tick font size
 
@@ -142,38 +174,41 @@ plt.title(title, fontsize=16)
 
 # Adjust colorbar font size
 cax = ax.collections[0].colorbar.ax
-cax.set_ylabel('Cost error', fontsize=12) 
+cax.set_ylabel('Mse', fontsize=12) 
 cax.tick_params(labelsize=10)  # Adjust colorbar font size
 
 plt.show()
-title = "Heatmap of NN mse for different {eta} and {lambda_2} values"
+
+### CHecking R2 score
+df_r2 = pd.DataFrame(r2_test_list, index = formatted_etas, columns = formatted_lmd)
+
+title = "Heatmap of NN R2 score for different learning rates and Regularization values"
 
 
-# # # Adjusting the figure size and annot font size
-# plt.figure(figsize=(10, 10))
-# ax = sns.heatmap(df_mse, annot=True, cmap="crest",fmt=".3f", linewidths=0.5, annot_kws={"size": 12}, cbar_kws={'label': 'MSE for the last epoch'})
+ # # Adjusting the figure size and annot font size
+plt.figure(figsize=(10, 10))
+ax = sns.heatmap(df_r2, annot=True, cmap="crest",fmt=".3f", linewidths=0.5, annot_kws={"size": 12}, cbar_kws={'label': 'R2 score for the last epoch'})
 
 
-# # Set x-axis and y-axis label font sizes
-# ax.set_xlabel("{lambda_2}, Regularization Parameter", fontsize=12)  # Add your X-axis label and adjust font size
-# ax.set_ylabel("{eta}, Learning Rate", fontsize=12)  # Add your Y-axis label and adjust font size
+ # Set x-axis and y-axis label font sizes
+ax.set_xlabel("{lambda_2}, Regularization Parameter", fontsize=12)  # Add your X-axis label and adjust font size
+ax.set_ylabel("{eta}, Learning Rate", fontsize=12)  # Add your Y-axis label and adjust font size
 
 
-# # Adjust x and y tick font size
-# ax.tick_params(axis='x', labelsize=10)  # Adjust x-axis tick font size
-# ax.tick_params(axis='y', labelsize=10)  # Adjust y-axis tick font size
+ # Adjust x and y tick font size
+ax.tick_params(axis='x', labelsize=10)  # Adjust x-axis tick font size
+ax.tick_params(axis='y', labelsize=10)  # Adjust y-axis tick font size
 
-# plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
-# plt.yticks(rotation=0)   # Rotate y-axis labels for better readability
-# plt.title(title, fontsize=16)
+plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+plt.yticks(rotation=0)   # Rotate y-axis labels for better readability
+plt.title(title, fontsize=16)
 
-# # Adjust colorbar font size
-# cax = ax.collections[0].colorbar.ax
-# cax.set_ylabel('Mse', fontsize=12) 
-# cax.tick_params(labelsize=10)  # Adjust colorbar font size
+# Adjust colorbar font size
+cax = ax.collections[0].colorbar.ax
+cax.set_ylabel('R2', fontsize=12) 
+cax.tick_params(labelsize=10)  # Adjust colorbar font size
 
-# plt.show()
-
+plt.show()
 
 
 #Checking different lamdas for best eta found in previus heatmap.
@@ -198,18 +233,3 @@ for j,lam in enumerate(l2_lambdas):
     plt.title(f'Regularization parameter against a fixed Learning rate, {eta} ')
     plt.xlabel('Epochs')
     plt.ylabel('Error')
-    figpath = '/Figures/'
-    filename = 'Regularization_parameter_vs_Fixed_Learning_rate.png'
-
-
-    
-
-
-
-
-
-
-
-
-
-

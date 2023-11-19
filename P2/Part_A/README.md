@@ -5,3 +5,4 @@ The function "designMatrix" is inspired by Morten Hjorth-Jensen's "create_X", al
 The code makes use of the libraries SciKit learn and Autograd/JAX, as well as the common NumPy, Matplotlib and Pandas.
  
 The code explores GD and SGD with different values of $\eta$, $\lambda_2$, batch size, $\eta$ tuning algorithm and number of epochs. Some plots are made for our own understanding and not included in the report. 
+

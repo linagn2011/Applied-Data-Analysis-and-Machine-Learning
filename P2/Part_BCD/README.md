@@ -6,4 +6,4 @@ The code is altered to allow for different activation functions and weight initi
 It also works on both regression and classification problems.
 The number of nodes for each hidden layer is the same.
 
-There are some issues with the code that we have not been able to debug with the given time. There are also some implementations that we would have liked to test on the datasets and put in the report, but due to a lack of time, we prioritized the report, and with that,presenting the code as is. GD is the only optimizer, and could have increased the overall performance, even with the bugs at hand.  
+There are some issues with the code that we have not been able to debug with the given time. There are also some implementations that we would have liked to test on the datasets and put in the report, but due to a lack of time, we prioritized the report, and with that,presenting the code as is. With other optimizers, the overall performance of the NN could have been increased, even with the bugs at hand.  

@@ -1,4 +1,4 @@
-### part B, C, D) ####
+### Part B, C, D) ####
 
 Our Neural network code is inspired by Morten Hjorth-Jensen's code at https://compphysics.github.io/MachineLearning/doc/pub/week41/html/week41.html.
 
